@@ -1,18 +1,22 @@
 <section class="container centered">
-  <div class="about">
-    {{ if and (isset .Site.Params "avatarurl") (not (isset .Site.Params "gravatar")) }}
-      {{ with .Site.Params.avatarURL }}
-        <div class="avatar"><img src="{{ . | relURL }}" alt="avatar"></div>
+  <div class="about h-card">
+    <div class="avatar">
+      <a class="u-url" href="{{ .Site.BaseURL }}">
+      {{ if and (isset .Site.Params "avatarurl") (not (isset .Site.Params "gravatar")) }}
+        {{ with .Site.Params.avatarURL }}
+          <img class="u-photo" src="{{ . | relURL }}" alt="avatar">
+        {{ end }}
       {{ end }}
-    {{ end }}
-    {{ with .Site.Params.gravatar }}
-      <div class="avatar"><img src="https://www.gravatar.com/avatar/{{md5 .}}?s=240&d=mp" alt="gravatar"></div>
-    {{ end }}
-    <h1>{{ .Site.Params.author }}</h1>
+      {{ with .Site.Params.gravatar }}
+        <img class="u-photo" src="https://www.gravatar.com/avatar/{{md5 .}}?s=240&d=mp" alt="gravatar">
+      {{ end }}
+      </a>
+    </div>
+    <h1 class="p-name">{{ .Site.Params.author }}</h1>
     {{ if reflect.IsSlice .Site.Params.info }}
-    <h2>{{ range .Site.Params.info }}{{.}}<br>{{ end}}</h2>
+    <h2 class="p-jobtitle">{{ range .Site.Params.info }}{{.}}<br>{{ end}}</h2>
     {{ else }}
-    <h2>{{ .Site.Params.info }}</h2>
+    <h2 class="p-jobtitle">{{ .Site.Params.info }}</h2>
     {{ end }}
     {{ with .Site.Params.social }}
     <ul>
